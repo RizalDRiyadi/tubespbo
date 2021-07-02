@@ -25,6 +25,32 @@ public class approval extends javax.swing.JFrame {
      */
     public approval() {
         initComponents();
+        load_table();
+    }
+    private void load_table(){
+        // membuat tampilan model tabel
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("nila pkn");
+        model.addColumn("jumlah anggota");
+        model.addColumn("waktu setujui");
+        model.addColumn("tempat setujui");
+        model.addColumn("nilai ujian");
+        
+       
+        
+        //menampilkan data database kedalam tabel
+        try {
+            int no=1;
+            String sql = "select * from approval";
+            java.sql.Connection conn=(Connection)connection.tryConnect();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                model.addRow(new Object[]{res.getString(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5)});
+            }
+            tapproval.setModel(model);
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -51,7 +77,6 @@ public class approval extends javax.swing.JFrame {
         tbsimpan = new javax.swing.JButton();
         tbedit = new javax.swing.JButton();
         tbhapus = new javax.swing.JButton();
-        tbbatal = new javax.swing.JButton();
         tbkeluar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         anilai = new javax.swing.JTextField();
@@ -99,6 +124,11 @@ public class approval extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 481, 760, 153));
 
         tbtambah.setText("REFRESH DATA");
+        tbtambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtambahActionPerformed(evt);
+            }
+        });
         getContentPane().add(tbtambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 340, -1, -1));
 
         tbsimpan.setText("SIMPAN");
@@ -110,13 +140,20 @@ public class approval extends javax.swing.JFrame {
         getContentPane().add(tbsimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 340, -1, -1));
 
         tbedit.setText("EDIT");
+        tbedit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbeditActionPerformed(evt);
+            }
+        });
         getContentPane().add(tbedit, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 340, -1, -1));
 
         tbhapus.setText("HAPUS");
+        tbhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbhapusActionPerformed(evt);
+            }
+        });
         getContentPane().add(tbhapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(474, 340, -1, -1));
-
-        tbbatal.setText("BATAL");
-        getContentPane().add(tbbatal, new org.netbeans.lib.awtextra.AbsoluteConstraints(627, 340, -1, -1));
 
         tbkeluar.setText("KELUAR");
         tbkeluar.addActionListener(new java.awt.event.ActionListener() {
@@ -190,7 +227,58 @@ public class approval extends javax.swing.JFrame {
         String pkn = tapproval.getValueAt(baris, 4).toString();
         anilai.setText(pkn);
         
+        
     }//GEN-LAST:event_tapprovalMouseClicked
+
+    private void tbeditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbeditActionPerformed
+        // TODO add your handling code here:
+        try {
+            String sql ="UPDATE approval SET surbal = '"+asurbal.getText()+"', jumanggota = '"+ajuml.getText()+"', waktusetujui = '"+awak.getText()+"',tempatsetujui= '"+atem.getText()+"' WHERE nilai_ujian= '"+anilai.getText()+"'";
+           
+            java.sql.Connection conn=(Connection)connection.tryConnect();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "data berhasil di edit");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Perubahan Data Gagal"+e.getMessage());
+        }
+        load_table();
+    }//GEN-LAST:event_tbeditActionPerformed
+
+    private void tbhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbhapusActionPerformed
+        // TODO add your handling code here:
+        Connection conn = connection.tryConnect();
+        int confirm = JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus data tersebut?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        
+        if (confirm == 0) {
+            
+            try {
+                java.sql.PreparedStatement stmt = conn.prepareStatement("delete from approval where surbal ='" + asurbal.getText() + "'");
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Data berhasil dihapus", "Pesan", JOptionPane.INFORMATION_MESSAGE);
+                
+                asurbal.setText("");
+                ajuml.setText("");
+                awak.setText("");
+                atem.setText("");
+                anilai.setText("");
+                
+                asurbal.requestFocus();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Data gagal di hapus" + e.getMessage(), "Pesan", JOptionPane.ERROR_MESSAGE);
+            }
+        }else{
+        JOptionPane.showMessageDialog(null, "Data gagal di hapus", "Pesan", JOptionPane.ERROR_MESSAGE);
+        
+    }
+    }//GEN-LAST:event_tbhapusActionPerformed
+
+    private void tbtambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtambahActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)tapproval.getModel();
+        model.setRowCount(0);
+        load_table();
+    }//GEN-LAST:event_tbtambahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,7 +329,6 @@ public class approval extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tapproval;
-    private javax.swing.JButton tbbatal;
     private javax.swing.JButton tbedit;
     private javax.swing.JButton tbhapus;
     private javax.swing.JButton tbkeluar;
