@@ -5,7 +5,10 @@
  */
 package testubespbo;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,30 +17,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class approval extends javax.swing.JFrame {
     
-    private void kosongkan_form(){
-        asurbal.setEditable(true);
-        asurbal.setText(null);
-        ajuml.setText(null);
-        awak.setText(null);
-        atem.setText(null);
-    }
     
-    private void tampilkan_data(){
-        
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("surat balasan");
-        model.addColumn("jumlah anggota setuju.");
-        model.addColumn("waktu disetujui.");
-        model.addColumn("tempat disetujui.");
-        
-        try{
-            int no = 1;
-            String sql = "SELECT * FROM approval";
-            
-        }catch (SQLException e){
-            System.out.println("eROR :" + e.getMessege());
-        }
-    }
+    
 
     /**
      * Creates new form approval
@@ -65,7 +46,7 @@ public class approval extends javax.swing.JFrame {
         awak = new javax.swing.JTextField();
         atem = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaproval = new javax.swing.JTable();
+        tapproval = new javax.swing.JTable();
         tbtambah = new javax.swing.JButton();
         tbsimpan = new javax.swing.JButton();
         tbedit = new javax.swing.JButton();
@@ -73,7 +54,7 @@ public class approval extends javax.swing.JFrame {
         tbbatal = new javax.swing.JButton();
         tbkeluar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        anilaiuj = new javax.swing.JTextField();
+        anilai = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -97,18 +78,23 @@ public class approval extends javax.swing.JFrame {
         getContentPane().add(awak, new org.netbeans.lib.awtextra.AbsoluteConstraints(489, 190, 283, -1));
         getContentPane().add(atem, new org.netbeans.lib.awtextra.AbsoluteConstraints(489, 234, 283, -1));
 
-        tabelaproval.setModel(new javax.swing.table.DefaultTableModel(
+        tapproval.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "nilai pkn", "jumlah anggota", "waktu setujui", "tempat setujui", "nilai ujian"
             }
         ));
-        jScrollPane1.setViewportView(tabelaproval);
+        tapproval.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tapprovalMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tapproval);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 481, 760, 153));
 
@@ -116,6 +102,11 @@ public class approval extends javax.swing.JFrame {
         getContentPane().add(tbtambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 340, -1, -1));
 
         tbsimpan.setText("SIMPAN");
+        tbsimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbsimpanActionPerformed(evt);
+            }
+        });
         getContentPane().add(tbsimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 340, -1, -1));
 
         tbedit.setText("EDIT");
@@ -137,7 +128,7 @@ public class approval extends javax.swing.JFrame {
 
         jLabel6.setText("Nilai Ujian");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
-        getContentPane().add(anilaiuj, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 280, -1));
+        getContentPane().add(anilai, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 280, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -147,6 +138,59 @@ public class approval extends javax.swing.JFrame {
         new menuadmin().show();
         this.dispose();
     }//GEN-LAST:event_tbkeluarActionPerformed
+
+    private void tbsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbsimpanActionPerformed
+        // TODO add your handling code here:
+         String surbal = asurbal.getText().trim();
+        String jumanggota = ajuml.getText().trim();
+        String waktusetujui = awak.getText().trim();
+        String tempatsetujui = atem.getText().trim();
+        String nilai_ujian = anilai.getText().trim();
+        
+       if (surbal.equals("")){
+    JOptionPane.showMessageDialog(null, "data tidak boleh kosong");
+ }else if(jumanggota.equals("")|| waktusetujui.equals("")|| tempatsetujui.equals("")|| nilai_ujian.equals("")) {
+     JOptionPane.showMessageDialog(null, "data tidak boleh kosong");
+     
+ }else{
+     try{
+         Connection c = connection.tryConnect();
+                String sql = "INSERT INTO approval VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement p = c.prepareStatement(sql);
+                p.setString(1, surbal);
+                p.setString(2, jumanggota);
+                p.setString(3, waktusetujui);
+                 p.setString(4, tempatsetujui);
+                  p.setString(5, nilai_ujian);
+                 
+              
+                p.executeUpdate();
+                p.close();
+                JOptionPane.showMessageDialog(null, "DATA BERHASIL DI INPUT");
+                
+            }catch(SQLException e){
+                System.out.println("Error");
+                
+            }
+        }
+       
+    }//GEN-LAST:event_tbsimpanActionPerformed
+
+    private void tapprovalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tapprovalMouseClicked
+        // TODO add your handling code here:
+        int baris = tapproval.rowAtPoint(evt.getPoint());
+        String ids = tapproval.getValueAt(baris, 0).toString();
+        asurbal.setText(ids);
+        String nama = tapproval.getValueAt(baris, 1).toString();
+        ajuml.setText(nama);
+        String proposal = tapproval.getValueAt(baris, 2).toString();
+        awak.setText(proposal);
+        String status = tapproval.getValueAt(baris, 3).toString();
+        atem.setText(status);
+        String pkn = tapproval.getValueAt(baris, 4).toString();
+        anilai.setText(pkn);
+        
+    }//GEN-LAST:event_tapprovalMouseClicked
 
     /**
      * @param args the command line arguments
@@ -185,7 +229,7 @@ public class approval extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ajuml;
-    private javax.swing.JTextField anilaiuj;
+    private javax.swing.JTextField anilai;
     private javax.swing.JTextField asurbal;
     private javax.swing.JTextField atem;
     private javax.swing.JTextField awak;
@@ -196,7 +240,7 @@ public class approval extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabelaproval;
+    private javax.swing.JTable tapproval;
     private javax.swing.JButton tbbatal;
     private javax.swing.JButton tbedit;
     private javax.swing.JButton tbhapus;
