@@ -155,6 +155,11 @@ public class nilpkn extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tnilpkn);
 
         tbrefresh.setText("refresh data");
+        tbrefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbrefreshActionPerformed(evt);
+            }
+        });
 
         tbsimpan.setText("simpan");
         tbsimpan.addActionListener(new java.awt.event.ActionListener() {
@@ -164,8 +169,18 @@ public class nilpkn extends javax.swing.JFrame {
         });
 
         tbedit.setText("edit");
+        tbedit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbeditActionPerformed(evt);
+            }
+        });
 
         tbhapus.setText("hapus");
+        tbhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbhapusActionPerformed(evt);
+            }
+        });
 
         tbkeluar.setText("keluar");
         tbkeluar.addActionListener(new java.awt.event.ActionListener() {
@@ -410,6 +425,66 @@ public class nilpkn extends javax.swing.JFrame {
         nkgaul.setText(tg);
         
     }//GEN-LAST:event_tnilpknMouseClicked
+
+    private void tbeditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbeditActionPerformed
+        // TODO add your handling code here:
+        try {
+            String sql ="UPDATE nilaipkn SET Nama = '"+nnama.getText()+"', NIM = '"+nnim.getText()+"', tempat = '"+ntempat.getText()+"',waktu = '"+nwaktu.getText()+"',sopansantun = '"+nsopan.getText()+"',disiplinkehadiran = '"+ndk.getText()+"',disiplinpekerjaan = '"+ndp.getText()+"',kdmkp = '"+nked.getText()+"',tgjawab = '"+ntj.getText()+"',kumtk = '"+nkemun.getText()+"',ptikp = '"+npeng.getText()+"',ketram = '"+nket.getText()+"',kember = '"+nkbic.getText()+"',kemgaul = '"+nkgaul.getText()+"'";
+           
+            java.sql.Connection conn=(Connection)connection.tryConnect();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "data berhasil di edit");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Perubahan Data Gagal"+e.getMessage());
+        }
+        load_table();
+    }//GEN-LAST:event_tbeditActionPerformed
+
+    private void tbhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbhapusActionPerformed
+        // TODO add your handling code here:
+        Connection conn = connection.tryConnect();
+        int confirm = JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus data tersebut?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        
+        if (confirm == 0) {
+            
+            try {
+                java.sql.PreparedStatement stmt = conn.prepareStatement("delete from nilaipkn where Nama ='" + nnama.getText() + "'");
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Data berhasil dihapus", "Pesan", JOptionPane.INFORMATION_MESSAGE);
+                
+                nnama.setText("");
+                nnim.setText("");
+                ntempat.setText("");
+                nwaktu.setText("");
+                nsopan.setText("");
+                ndk.setText("");
+                ndp.setText("");
+                nked.setText("");
+                ntj.setText("");
+                nkemun.setText("");
+                npeng.setText("");
+                nket.setText("");
+                nkbic.setText("");
+                nkgaul.setText("");
+                
+                
+                nnama.requestFocus();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Data gagal di hapus" + e.getMessage(), "Pesan", JOptionPane.ERROR_MESSAGE);
+            }
+        }else{
+        JOptionPane.showMessageDialog(null, "Data gagal di hapus", "Pesan", JOptionPane.ERROR_MESSAGE);
+        
+    }
+    }//GEN-LAST:event_tbhapusActionPerformed
+
+    private void tbrefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbrefreshActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)tnilpkn.getModel();
+        model.setRowCount(0);
+        load_table();
+    }//GEN-LAST:event_tbrefreshActionPerformed
 
     /**
      * @param args the command line arguments

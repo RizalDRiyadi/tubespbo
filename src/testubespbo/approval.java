@@ -162,7 +162,7 @@ public class approval extends javax.swing.JFrame {
                 tbkeluarActionPerformed(evt);
             }
         });
-        getContentPane().add(tbkeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(762, 340, -1, -1));
+        getContentPane().add(tbkeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 340, -1, -1));
 
         jLabel6.setText("Nilai Ujian");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));

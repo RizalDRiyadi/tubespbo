@@ -409,6 +409,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="refresh data"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tbrefreshActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JToggleButton" name="tbsimpan">
       <Properties>
@@ -422,11 +425,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="edit"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tbeditActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JToggleButton" name="tbhapus">
       <Properties>
         <Property name="text" type="java.lang.String" value="hapus"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tbhapusActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JToggleButton" name="tbkeluar">
       <Properties>
