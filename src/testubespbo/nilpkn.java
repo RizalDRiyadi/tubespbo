@@ -5,6 +5,12 @@
  */
 package testubespbo;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ADMIN
@@ -16,6 +22,40 @@ public class nilpkn extends javax.swing.JFrame {
      */
     public nilpkn() {
         initComponents();
+        load_table();
+    }
+    
+    private void load_table(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("1");
+        model.addColumn("2");
+        model.addColumn("3");
+        model.addColumn("4");
+        model.addColumn("5");
+        model.addColumn("6");
+        model.addColumn("7");
+        model.addColumn("8");
+        model.addColumn("9");
+        model.addColumn("10");
+        model.addColumn("11");
+        model.addColumn("12");
+        model.addColumn("13");
+        model.addColumn("14");
+        
+        
+        //menampilkan data database kedalam tabel
+        try {
+            int no=1;
+            String sql = "select * from nilaipkn";
+            java.sql.Connection conn=(Connection)connection.tryConnect();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                model.addRow(new Object[]{res.getString(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6),res.getString(7),res.getString(8),res.getString(9),res.getString(10),res.getString(11),res.getString(12),res.getString(13),res.getString(14)});
+            }
+            tnilpkn.setModel(model);
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -28,30 +68,348 @@ public class nilpkn extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        nnama = new javax.swing.JTextField();
+        nnim = new javax.swing.JTextField();
+        ntempat = new javax.swing.JTextField();
+        nsopan = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        ndk = new javax.swing.JTextField();
+        ntj = new javax.swing.JTextField();
+        ndp = new javax.swing.JTextField();
+        nked = new javax.swing.JTextField();
+        nkgaul = new javax.swing.JTextField();
+        npeng = new javax.swing.JTextField();
+        nkemun = new javax.swing.JTextField();
+        nkbic = new javax.swing.JTextField();
+        nket = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        nwaktu = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tnilpkn = new javax.swing.JTable();
+        tbrefresh = new javax.swing.JToggleButton();
+        tbsimpan = new javax.swing.JToggleButton();
+        tbedit = new javax.swing.JToggleButton();
+        tbhapus = new javax.swing.JToggleButton();
+        tbkeluar = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("NILAI PKN");
+
+        jLabel2.setText("2.NIM");
+
+        jLabel3.setText("1.NAMA");
+
+        jLabel4.setText("3.TEMPAT");
+
+        jLabel5.setText("4.SOPAN SANTUN");
+
+        jLabel6.setText("5.DISIPLIN KEHADIRAN");
+
+        jLabel7.setText("7.DISIPLIN DALAM PEKERJAAN");
+
+        jLabel8.setText("Waktu");
+
+        jLabel9.setText("8.KEDUNGGUHAN DALAM MELAKUKAN KERJA PRAKTEK");
+
+        jLabel10.setText("10.KEMAUAN UNTUK");
+
+        jLabel11.setText("9.TANGGUNG JAWAB");
+
+        jLabel12.setText("12.KETERAMPILAN");
+
+        jLabel13.setText("11.PENGETAHUAN TENTANG ILMU");
+
+        jLabel14.setText("14.KEMAUAN BERGAUL");
+
+        jLabel15.setText("13.KAMAUAN BERBICARA");
+
+        tnilpkn.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"
+            }
+        ));
+        tnilpkn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tnilpknMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tnilpkn);
+
+        tbrefresh.setText("refresh data");
+
+        tbsimpan.setText("simpan");
+        tbsimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbsimpanActionPerformed(evt);
+            }
+        });
+
+        tbedit.setText("edit");
+
+        tbhapus.setText("hapus");
+
+        tbkeluar.setText("keluar");
+        tbkeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbkeluarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(144, 144, 144)
-                .addComponent(jLabel1)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(403, 403, 403)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(110, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8))
+                                .addGap(252, 252, 252)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nsopan, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nwaktu, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ntempat, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nnim, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nnama, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ndk, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel14))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nkgaul, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nkemun, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ntj, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ndp, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nked, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(npeng, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nket, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nkbic, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tbhapus)
+                            .addComponent(tbkeluar)
+                            .addComponent(tbrefresh)
+                            .addComponent(tbsimpan)
+                            .addComponent(tbedit))))
+                .addGap(256, 256, 256))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addContainerGap(372, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(nnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nnim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(ntempat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tbrefresh)
+                        .addComponent(nwaktu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tbsimpan)
+                        .addComponent(nsopan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tbedit)
+                            .addComponent(jLabel6)
+                            .addComponent(ndk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tbhapus)
+                        .addComponent(ndp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(nked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tbkeluar))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(ntj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(nkemun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(npeng, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(nket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(nkbic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(nkgaul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(286, 286, 286))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tbsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbsimpanActionPerformed
+        // TODO add your handling code here:
+        
+        String Nama = nnama.getText().trim();
+        String NIM = nnim.getText().trim();
+        String Tempat = ntempat.getText().trim();
+        String waktu = nwaktu.getText().trim();
+        String sopansantun = nsopan.getText().trim();
+        String disiplinkehadiran = ndk.getText().trim();
+        String disiplinpekerjaan = ndp.getText().trim();     
+        String kdmkp = nked.getText().trim();
+        String tgjawab = ntj.getText().trim();
+        String kumtk = nkemun.getText().trim();
+        String ptikp = npeng.getText().trim();
+        String ketram = nket.getText().trim();
+        String kember = nkbic.getText().trim();
+        String kemgaul = nkgaul.getText().trim();
+
+        if (Nama.equals("")){
+    JOptionPane.showMessageDialog(null, "nama tidak boleh kosong");
+ }else if(NIM.equals("")|| Tempat.equals("")|| waktu.equals("")|| sopansantun.equals("")|| disiplinkehadiran.equals("")|| disiplinpekerjaan.equals("")|| kdmkp.equals("")|| tgjawab.equals("")|| kumtk.equals("")|| ptikp.equals("")|| ketram.equals("")|| kember.equals("")|| kemgaul.equals("")) {
+     JOptionPane.showMessageDialog(null, "data tidak boleh kosong");
+     
+ }else{
+     try{
+         Connection c = connection.tryConnect();
+                String sql = "INSERT INTO nilaipkn VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement p = c.prepareStatement(sql);
+                p.setString(1, Nama);
+                p.setString(2, NIM);
+                p.setString(3, Tempat);
+                 p.setString(4, waktu);
+                  p.setString(5, sopansantun );
+                p.setString(6, disiplinkehadiran);
+                p.setString(7, disiplinpekerjaan);
+                p.setString(8, kdmkp);
+                 p.setString(9, tgjawab);
+                  p.setString(10, kumtk);
+                  p.setString(11, ptikp);
+                p.setString(12, ketram);
+                p.setString(13, kember);
+                 p.setString(14, kemgaul);
+              
+                p.executeUpdate();
+                p.close();
+                JOptionPane.showMessageDialog(null, "DATA BERHASIL DI INPUT");
+                
+            }catch(SQLException e){
+                System.out.println("Error");
+                
+            }
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_tbsimpanActionPerformed
+
+    private void tbkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbkeluarActionPerformed
+        // TODO add your handling code here:
+        new menuadmin().show();
+        this.dispose();
+    }//GEN-LAST:event_tbkeluarActionPerformed
+
+    private void tnilpknMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tnilpknMouseClicked
+        // TODO add your handling code here:
+        int baris = tnilpkn.rowAtPoint(evt.getPoint());
+        String ids = tnilpkn.getValueAt(baris, 0).toString();
+        nnama.setText(ids);
+        String nama = tnilpkn.getValueAt(baris, 1).toString();
+        nnim.setText(nama);
+        String proposal = tnilpkn.getValueAt(baris, 2).toString();
+        ntempat.setText(proposal);
+        String status = tnilpkn.getValueAt(baris, 3).toString();
+        nwaktu.setText(status);
+        String pkn = tnilpkn.getValueAt(baris, 4).toString();
+        nsopan.setText(pkn);
+        String ta = tnilpkn.getValueAt(baris, 5).toString();
+        ndk.setText(ta);
+        String dp = tnilpkn.getValueAt(baris, 6).toString();
+        ndp.setText(dp);
+        String tb = tnilpkn.getValueAt(baris, 7).toString();
+        nked.setText(tb);
+        String tc = tnilpkn.getValueAt(baris, 8).toString();
+        ntj.setText(tc);
+        String td = tnilpkn.getValueAt(baris, 9).toString();
+        nkemun.setText(td);
+        String te = tnilpkn.getValueAt(baris, 10).toString();
+        npeng.setText(te);
+        String tf = tnilpkn.getValueAt(baris, 11).toString();
+        nket.setText(tf);
+        String th = tnilpkn.getValueAt(baris, 12).toString();
+        nkbic.setText(th);
+        String tg = tnilpkn.getValueAt(baris, 13).toString();
+        nkgaul.setText(tg);
+        
+    }//GEN-LAST:event_tnilpknMouseClicked
 
     /**
      * @param args the command line arguments
@@ -90,5 +448,40 @@ public class nilpkn extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField ndk;
+    private javax.swing.JTextField ndp;
+    private javax.swing.JTextField nkbic;
+    private javax.swing.JTextField nked;
+    private javax.swing.JTextField nkemun;
+    private javax.swing.JTextField nket;
+    private javax.swing.JTextField nkgaul;
+    private javax.swing.JTextField nnama;
+    private javax.swing.JTextField nnim;
+    private javax.swing.JTextField npeng;
+    private javax.swing.JTextField nsopan;
+    private javax.swing.JTextField ntempat;
+    private javax.swing.JTextField ntj;
+    private javax.swing.JTextField nwaktu;
+    private javax.swing.JToggleButton tbedit;
+    private javax.swing.JToggleButton tbhapus;
+    private javax.swing.JToggleButton tbkeluar;
+    private javax.swing.JToggleButton tbrefresh;
+    private javax.swing.JToggleButton tbsimpan;
+    private javax.swing.JTable tnilpkn;
     // End of variables declaration//GEN-END:variables
 }

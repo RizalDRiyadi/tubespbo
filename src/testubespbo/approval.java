@@ -26,6 +26,7 @@ public class approval extends javax.swing.JFrame {
     public approval() {
         initComponents();
         load_table();
+        
     }
     private void load_table(){
         // membuat tampilan model tabel
@@ -88,7 +89,7 @@ public class approval extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 26, -1, 34));
 
         jLabel2.setText("Nilai PKN dari perusahaan");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 110, 190, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 190, -1));
 
         jLabel3.setText("jumlah anggota yang disetujui");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 151, -1, -1));
